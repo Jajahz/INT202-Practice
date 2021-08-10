@@ -2,6 +2,11 @@ package review;
 
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @EqualsAndHashCode(exclude = "gpax")
@@ -16,7 +21,9 @@ public class student implements Comparable<student>{
 
     @Override
     public int compareTo(student s1) {
-        return ((Double)gpax).compareTo(s1.getGpax());
+        // create int to return all arg
+        int hash = this.name.compareTo(s1.getName());
+        return hash;
     }
 
 

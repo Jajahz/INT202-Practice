@@ -1,12 +1,13 @@
 package review;
 
+import java.text.StringCharacterIterator;
 import java.util.*;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 public class main {
     public static void main(String[] args) {
         hashTest();
-        System.out.println();
+        System.out.println("-------------------------------");
         treeTest();
     }
 
@@ -27,11 +28,13 @@ public class main {
 
         List<student> desStudent = new ArrayList<student>(hashSet);
         Collections.sort(desStudent);
+//        System.out.println(desStudent);
+
+        // desc
 
         ListIterator<student> itr = desStudent.listIterator(desStudent.size());
         while(itr.hasPrevious())
             System.out.println(itr.previous() + ", ");
-
     }
 
 
@@ -43,7 +46,9 @@ public class main {
         treeSet.add(new student(10007, "Somsiri", 3.25));
         treeSet.add(new student(10037, "Sirisopaphan", 3.25));
 
-//        TreeSet<student> desStudent2 = (TreeSet<student>) treeSet.des
+        List<student> desStudent2 = new ArrayList<>(treeSet);
+        Collections.sort(desStudent2);
+        System.out.println(desStudent2);
     }
 }
 
