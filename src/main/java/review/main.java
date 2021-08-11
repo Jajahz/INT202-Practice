@@ -26,15 +26,15 @@ public class main {
 //                .collect(Collectors.toList());
 //        System.out.println(hashSet);
 
-        List<student> desStudent = new ArrayList<student>(hashSet);
+        List<student> desStudent = new ArrayList<>(hashSet);
         Collections.sort(desStudent);
-//        System.out.println(desStudent);
+        System.out.println(desStudent);
 
         // desc
 
-        ListIterator<student> itr = desStudent.listIterator(desStudent.size());
-        while(itr.hasPrevious())
-            System.out.println(itr.previous() + ", ");
+//        ListIterator<student> itr = desStudent.listIterator(desStudent.size());
+//        while(itr.hasPrevious())
+//            System.out.println(itr.previous() + ", ");
     }
 
 

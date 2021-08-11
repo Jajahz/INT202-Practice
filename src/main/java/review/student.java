@@ -21,9 +21,10 @@ public class student implements Comparable<student>{
 
     @Override
     public int compareTo(student s1) {
-        // create int to return all arg
-        int hash = this.name.compareTo(s1.getName());
-        return hash;
+        if(s1.getGpax().equals(getGpax())){
+            return getName().compareTo(s1.getName());
+        }
+        return getGpax()>s1.getGpax() ? -1 : 1;
     }
 
 
