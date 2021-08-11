@@ -21,10 +21,13 @@ public class student implements Comparable<student>{
 
     @Override
     public int compareTo(student s1) {
-        if(s1.getGpax().equals(getGpax())){
-            return getName().compareTo(s1.getName());
+        if(this.getGpax().equals(s1.getGpax())){
+            return this.getName().compareTo(s1.getName());
         }
-        return getGpax()>s1.getGpax() ? -1 : 1;
+        if (s1.getGpax() > this.getGpax()) {
+            return -1;
+        }
+        return 1;
     }
 
 
