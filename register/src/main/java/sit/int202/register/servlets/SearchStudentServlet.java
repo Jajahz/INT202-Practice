@@ -14,6 +14,11 @@ import java.io.PrintWriter;
 public class SearchStudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/SearchStudent.jsp").forward(request,response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         StudentRepository studentRepository = new StudentRepository();
         String paramId = request.getParameter("id");
         Integer id = null;
@@ -38,11 +43,5 @@ public class SearchStudentServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
-            ServletException, IOException {
-
     }
 }

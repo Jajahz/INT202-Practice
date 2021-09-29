@@ -19,6 +19,7 @@ public class RemoveStudentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         Map<String, String[]> parameterMap = request.getParameterMap();
 
         int id = Integer.valueOf(parameterMap.get("id")[0]);
