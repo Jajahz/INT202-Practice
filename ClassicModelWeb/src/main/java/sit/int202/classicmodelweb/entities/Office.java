@@ -36,7 +36,7 @@ public class Office {
     @Column(name = "territory", nullable = false, length = 10)
     private String territory;
 
-    @OneToMany(mappedBy = "officeCode", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "officeCode", fetch = FetchType.EAGER)
     private List<Employee> employeeList;
 
     public List<Employee> getEmployeeList() {
