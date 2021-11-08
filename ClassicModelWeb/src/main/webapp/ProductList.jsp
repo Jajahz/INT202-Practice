@@ -6,7 +6,14 @@
             <div class="img-fluid img-thumbnail" title="${p.productDescription}">
                 <img src="model-images/${p.productLine.id}/${p.id}.jpg" height="120" width="180"/>
             </div>
-            <div>${p.productName} <span class="text-right">${p.msrp}</span></div>
+            <div>
+                    ${p.productName}
+                        <span class="text-right">${p.msrp}</span>
+
+                <span style="color: darkred;margin-left: 2px;cursor: pointer">
+                            <i class="bi bi-bag-plus" onclick="addToCart('${p.id}')"></i>
+                        </span>
+            </div>
         </div>
     </c:forEach>
 </div>
@@ -21,7 +28,7 @@
             <div class="px-1 mx-1 div-link text-light bg-dark"> ${vs.count} </div>
         </c:when><c:otherwise>
             <div class="px-1 mx-1 div-link" onclick="loadProduct(${vs.count}, ${pageSize})">
-                    ${vs.count}                </div>
+                    ${vs.count} </div>
         </c:otherwise></c:choose></c:forEach>
     <div class="px-1 mx-2 div-link"
          onclick="loadProduct(page=${page>=totalPage?1:page+1}, ${pageSize})"> &gt;

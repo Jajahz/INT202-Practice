@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         .div-link {
             cursor: pointer;
@@ -15,6 +16,17 @@
 
         .div-link:hover {
             background-color: bisque;
+        }
+        .cart-info {
+            margin-left: -1em;
+            border-radius: 12px;
+            background-color: bisque;
+            position: absolute;
+            z-index: 100;
+            border: none;
+            padding-left: 5px;
+            padding-right: 5px;
+            display: none;
         }
     </style>
     <script>
@@ -40,6 +52,7 @@
             xhttp.open("GET", "product-list?page=" + page + "&pageSize=" + pageSize);
             xhttp.send();
         }
+
         function setLoading(on_off) {
             let loading = document.getElementById("loading");
             if(on_off=='on') {
@@ -50,6 +63,26 @@
                 loading.classList.add("d-none");
             }
         }
+
+        function addToCart(productCode) {
+            setLoading('on')
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                setLoading('off');
+                cartInfo = document.getElementById("noOfItemInCart");
+                noOfItem = xhttp.responseText;
+//                alert("Response = "+ noOfItem);
+                if (noOfItem > 0) {
+                    cartInfo.style.display = 'inline'
+                } else {
+                    cartInfo.style.display = 'none'
+                }
+                cartInfo.innerHTML = noOfItem;
+            }
+            xhttp.open("GET", "add-to-cart?productCode=" + productCode);
+            xhttp.send();
+        }
+
     </script>
 </head>
 <body>
@@ -65,7 +98,12 @@
                 <li class="nav-item ml-4"><a class="nav-link text-light" href="#"><i
                         class="bi bi-box-arrow-in-right"></i> Login</a></li>
             </ul>
-            <form class="d-flex"><input id="searchBox" class="form-control me-2" type="text" placeholder="Search">
+            <div style="margin-right: 20px">
+                <img src="assets/images/cart.png" width="42" onclick="viewCart()"/>
+                <button id="noOfItemInCart" class="cart-info" onclick="viewCart()"></button>
+            </div>
+            <form class="d-flex">
+                <input id="searchBox" class="form-control me-2" type="text" placeholder="Search">
                 <button class="btn btn-primary" type="button" onclick="googleSearch()">Search</button>
             </form>
         </div>
