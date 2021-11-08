@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:choose>
     <c:when test="${cart==null || empty cart.allItem}">
         <h3 class="text-danger">No item in your shopping cart</h3>
@@ -21,12 +22,12 @@
                     <td>${lineItem.product.productName}</td>
                     <td>${lineItem.quantity}</td>
                     <td>${lineItem.product.msrp}</td>
-                    <td>${lineItem.total}</td>
+                    <td><fmt:formatNumber pattern="#,###.00" value="${lineItem.total}"/></td>
                 </tr>
             </c:forEach>
             <tr>
                 <td colspan="5" style="text-align: right;margin-right: 5px">Total</td>
-                <td>${cart.totalPrice}</td>
+                <td><fmt:formatNumber pattern="#,###.00" value="${cart.totalPrice}" /></td>
             </tr>
             </tbody>
         </table>
