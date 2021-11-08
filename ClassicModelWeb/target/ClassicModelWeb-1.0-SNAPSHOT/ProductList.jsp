@@ -7,7 +7,8 @@
                 <img src="model-images/${p.productLine.id}/${p.id}.jpg" height="120" width="180"/>
             </div>
             <div>
-                    ${p.productName}<span class="text-right">${p.msrp}</span>
+                    ${p.productName}
+                        <span class="text-right">${p.msrp}</span>
 
                 <span style="color: darkred;margin-left: 2px;cursor: pointer">
                             <i class="bi bi-bag-plus" onclick="addToCart('${p.id}')"></i>

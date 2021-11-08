@@ -30,6 +30,19 @@
         }
     </style>
     <script>
+
+        function viewCart() {
+            setLoading('on')
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                setLoading('off');
+                document.getElementById("view-cart").innerHTML = xhttp.responseText;
+                $('#viewCartModal').modal('show');
+            }
+            xhttp.open("GET", "ViewCart.jsp");
+            xhttp.send();
+        }
+
         function loadOffice(officeCode) {
             const xhttp = new XMLHttpRequest();
             setLoading('on')
@@ -140,13 +153,31 @@
          style="margin-top: 10%; width: 6rem; height: 6rem;"></div>
 </div>
 
-<c:if test="${cookie.lastpage != null}">
-    <script>
-        window.onload = (ev) => {
-            ${cookie.lastpage.value ==
-            'office-list' ? 'loadOffice()' : 'loadProduct(1,15)'}        };
-    </script>
-</c:if>
+<%--<c:if test="${cookie.lastpage != null}">--%>
+<%--    <script>--%>
+<%--        window.onload = (ev) => {--%>
+<%--            ${cookie.lastpage.value ==--%>
+<%--            'office-list' ? 'loadOffice()' : 'loadProduct(1,15)'}        };--%>
+<%--    </script>--%>
+<%--</c:if>--%>
+
+<div class="modal" tabindex="-1" id="viewCartModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Your Cart</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="$('#viewCartModal').modal('hide')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="view-cart">
+                <p>Modal body text goes here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>
