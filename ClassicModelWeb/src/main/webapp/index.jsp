@@ -48,7 +48,11 @@
             setLoading('on')
             xhttp.onload = function () {
                 setLoading('off')
-                document.getElementById("body-content").innerHTML = xhttp.responseText;
+                if(xhttp.status == 401){
+                    showLoginForm();
+                }else {
+                    document.getElementById("body-content").innerHTML = xhttp.responseText;
+                }
             }
             xhttp.open("GET", "office-list?officeCode=" + officeCode);
             xhttp.send();
@@ -95,10 +99,52 @@
             xhttp.open("GET", "add-to-cart?productCode=" + productCode);
             xhttp.send();
         }
-
+        function showLoginForm() {
+            let menu = document.getElementById("login-menu").innerHTML;
+            if (menu.includes('Logout')) {
+                logout();
+            } else {
+                $('#modalLoginForm').modal('show');
+            }
+        }
+        function login(userName, password) {
+            setLoading('on')
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                setLoading('off');
+                if (xhttp.status == 200) {
+                    $('#modalLoginForm').modal('hide');
+                    document.getElementById("login-menu").innerHTML="<i class='bi bi-box-arrow-left'></i> Logout"
+                } else if (xhttp.status >= 500) {
+                    document.getElementById("login-message").innerHTML = xhttp.statusText;
+                } else {
+                    document.getElementById("login-message").innerHTML = "Wrong user name or password !!!";
+                }
+            }
+            // var params = "userName=" + userName + "&password=" + password;
+            // //alert("params: " + params);
+            // xhttp.open("GET", "login?" + params);
+            // xhttp.send();
+            let urlEncodedData = "", urlEncodedDataPairs = [];
+            urlEncodedDataPairs.push( encodeURIComponent("userName") + '=' + encodeURIComponent(userName));
+            urlEncodedDataPairs.push( encodeURIComponent("password") + '=' + encodeURIComponent(password));
+            urlEncodedData = urlEncodedDataPairs.join( '&' ).replace( /%20/g, '+' );
+            xhttp.open("POST", "login");
+            xhttp.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+            xhttp.send(urlEncodedData);
+        }
+        function logout(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function (){
+                location.reload();
+            }
+            xhttp.open("GET", "logout");
+            xhttp.send();
+        }
     </script>
 </head>
 <body>
+<jsp:include page="WEB-INF/jsp/login-form.html" />
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid"><a class="navbar-brand text-warning" href="javascript:void(0)">Classic Model</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar"><span
@@ -108,8 +154,10 @@
                 <li class="nav-item"><a class="nav-link" href="javascript:loadOffice('')">Office</a></li>
                 <li class="nav-item"><a class="nav-link" href="javascript:loadProduct(1,15)">Product</a></li>
                 <li class="nav-item"><a class="nav-link" href="javascript:void(0)">Order History</a></li>
-                <li class="nav-item ml-4"><a class="nav-link text-light" href="#"><i
-                        class="bi bi-box-arrow-in-right"></i> Login</a></li>
+                <li class="nav-item ml-4">
+                    <a id="login-menu" class="nav-link text-light" href="javascript: showLoginForm()"><i
+                        class="bi bi-box-arrow-in-right"></i> Login</a>
+                </li>
             </ul>
             <div style="margin-right: 20px">
                 <img src="assets/images/cart.png" width="42" onclick="viewCart()"/>
