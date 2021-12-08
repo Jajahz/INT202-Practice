@@ -57,6 +57,16 @@ public class Customer {
     @Column(name = "password", length = 64)
     private String password;
 
+    @Column(name = "role", length = 20)
+    private String role;
+
+    public String getRole(){
+        return role;
+    }
+    public void setRole(String role){
+        this.role = role;
+    }
+
     public String getPassword() {
         return password;
     }

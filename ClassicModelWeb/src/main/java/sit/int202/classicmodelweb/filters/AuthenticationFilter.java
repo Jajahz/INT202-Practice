@@ -23,6 +23,20 @@ public class AuthenticationFilter implements Filter {
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
+        if(session.getAttribute("role") == "admin"){
+            chain.doFilter(request,response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/135/admin/");
+            dispatcher.forward(request, response);
+        } else if (session.getAttribute("role") == "user") {
+        chain.doFilter(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/135/user/");
+            dispatcher.forward(request, response);
+    } else {
+            chain.doFilter(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/");
+        dispatcher.forward(request, response);
+
+    }
         chain.doFilter(request,response);
     }
 
