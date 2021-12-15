@@ -47,4 +47,12 @@ public class Cart<K, V extends CartItem> {
     public Collection<V> getAllItem() {
         return Collections.unmodifiableCollection(map.values());
     }
+
+    public void updateItem(K key, int quantity) {
+        V item = map.get(key);
+        if(item.getQuantity() != quantity){
+            item.setQuantity(quantity);
+        }
+    }
+
 }

@@ -141,6 +141,49 @@
             xhttp.open("GET", "logout");
             xhttp.send();
         }
+
+        function editCart(){
+            setLoading('on')
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                setLoading('off');
+                document.getElementById("view-cart").innerHTML = xhttp.responseText;
+                $('#editCartModal').modal('show');
+            }
+            xhttp.open("GET", "EditCart.jsp");
+            xhttp.send();
+        }
+
+        function updateCart(productCode,index,price) {
+            const xhttp = new XMLHttpRequest();
+            let pCode = productCode.id;
+            let qty = productCode.value;
+            xhttp.onload = function () {
+                document.getElementById("show-total-"+index).textContent =
+                    (qty*price).toFixed(2);
+                addToCart();
+            }
+            var param = "productCode="+ pCode +"&quantity="+ qty;
+            xhttp.open("GET", "update-to-cart?" + param);
+            xhttp.send();
+        }
+
+        function removeItem(productCode,rowIndex){
+            var confirm1 = confirm("Are you sure? \n to remove this product = "+
+                productCode.id);
+            if (confirm1 == true) {
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function () {
+                    document.getElementById(rowIndex).setAttribute("style",
+                        "display:none");
+                    addToCart();
+                }
+                var param = "productCode=" + productCode.id + "&quantity=" + 0;
+                xhttp.open("GET", "update-to-cart?" + param);
+                xhttp.send();
+            }
+        }
+
     </script>
 </head>
 <body>
